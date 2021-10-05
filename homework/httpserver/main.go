@@ -49,7 +49,7 @@ func buildServerMux() *http.ServeMux {
 	mux := http.NewServeMux()
 	injectDebug(mux)
 	mux.HandleFunc("/", rootHandler)
-	mux.HandleFunc("/healthz", healthz)
+	mux.HandleFunc("/healthz", healthzHandler)
 
 	return mux
 }
@@ -63,7 +63,7 @@ func injectDebug(mux *http.ServeMux) {
 }
 
 // check application is health
-func healthz(w http.ResponseWriter, r *http.Request) {
+func healthzHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	_, _ = io.WriteString(w, "ok")
 }
@@ -87,5 +87,5 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 // print remote client address , port , status code
 func logResponse(statusCode int, r *http.Request) {
 	t := time.Now().Format("2006-01-02 15-04-05")
-	fmt.Printf("time: %s, remote client: %s, status code: %d", t, r.RemoteAddr, statusCode)
+	fmt.Printf("time: %s, remote client: %s, status code: %d\n", t, r.RemoteAddr, statusCode)
 }
