@@ -104,7 +104,7 @@ func healthzHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	_, _ = io.WriteString(w, "ok")
 	t := time.Now().Format("2006-01-02 15:04:05")
-	glog.V(DebugLevel).Info("time: %v, health check \n", t)
+	glog.V(DebugLevel).Infof("time: %v, health check \n", t)
 }
 
 // rootHandler Path /
